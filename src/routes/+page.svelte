@@ -1,3 +1,1 @@
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-</h1>
+<pre class="text-3xl font-semibold text-center p-4">{`<?php echo 'Hello World'; ?>`}</pre>
