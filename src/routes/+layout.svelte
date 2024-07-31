@@ -1,12 +1,7 @@
 <script>
-    import {page} from "$app/stores";
     import "../app.css";
     import Link from "../components/Link.svelte";
 </script>
-
-<svelte:head>
-    <link href={$page.url.origin + $page.url.pathname} rel="canonical" />
-</svelte:head>
 
 <header class="mb-4">
     <div class="flex gap-2">
