@@ -5,7 +5,7 @@
 
 <header class="mb-4">
     <div class="flex gap-2">
-        <img alt="avatar" class="w-10 rounded" src="/avatar-132x132.jpg" />
+        <img alt="avatar" class="w-10 rounded" src="/assets/images/avatar-132x132.jpg" />
         <h2 class="text-3xl font-semibold uppercase">kreme201</h2>
     </div>
     <nav class="border-t border-b flex space-x-4 mt-4 p-3 text-sm">
