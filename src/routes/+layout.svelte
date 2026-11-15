@@ -29,8 +29,10 @@
     <!-- 스티키 헤더 위 여백(600px 이상만 10px): 그 사이로 본문이 비치지 않게 바깥 배경색 띠로 덮음 -->
     <div aria-hidden="true" class="fixed inset-x-0 top-0 z-20 hidden h-[10px] bg-tt-bg min-[600px]:block"></div>
 
-    <!-- 스크롤해도 화면 위에 붙어 있는 헤더 (모바일은 맨 위에 꽉 차게, 600px 이상은 10px 아래) -->
-    <header bind:clientHeight={headerHeight} class="sticky top-0 z-10 bg-white py-6 min-[600px]:top-[10px]">
+    <!-- 스크롤해도 화면 위에 붙어 있는 헤더 (모바일은 맨 위에 꽉 차게, 600px 이상은 10px 아래)
+         음수 마진으로 박스 좌우 여백까지 흰 배경을 넓혀, 밑으로 지나가는 카드 그림자가 헤더 양옆에 비치지 않게 함 -->
+    <header bind:clientHeight={headerHeight}
+            class="sticky top-0 z-10 -mx-6 bg-white px-6 py-6 min-[600px]:top-[10px] min-[600px]:-mx-10 min-[600px]:px-10">
         <div class="flex flex-wrap items-end justify-between gap-2">
             <a class="group inline-flex items-center gap-3" href="/">
                 <img alt="" class="h-10 w-10 rounded" height="40" src="/assets/images/avatar-132x132.jpg" width="40" />
