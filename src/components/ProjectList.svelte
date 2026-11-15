@@ -5,7 +5,7 @@
 </script>
 
 <!-- 프로젝트 카드 목록: 카드 전체가 상세 페이지로 가는 새 창 링크 -->
-<ul class="!ml-0 grid !list-none gap-4 sm:grid-cols-2">
+<ul class="!ml-0 grid !list-none gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {#each projects as project}
         <li class="min-w-0">
             <a

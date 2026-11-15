@@ -17,14 +17,26 @@
 
 <h1 class="sr-only">{profile.handle} 프로젝트</h1>
 
-<Entry id="personal" title="개인 프로젝트">
-    <ProjectList projects={personalProjects} />
-
-    <svelte:fragment slot="meta">
-        개인 프로젝트 {personalProjects.length}건 · 카드를 누르면 GitHub 저장소가 새 창으로 열립니다.
-    </svelte:fragment>
+<!-- 본문 상단 프로필: 프로젝트와 같은 Entry 타이포그래피, 소개문 아래에 기술 스택 태그 -->
+<Entry id="about" title="About">
+    <p class="!mb-3">
+        {profile.location}에서 일하는 {profile.tagline} <strong>{profile.name}</strong>입니다.
+        PHP, WordPress, Laravel을 중심으로 웹 서비스를 만들고 운영합니다.
+    </p>
+    <ul aria-label="기술 스택" class="!mb-0 !ml-0 flex !list-none flex-wrap gap-1.5">
+        {#each profile.skills as skill}
+            <li class="rounded-sm bg-tt-line px-2 text-[12px] text-tt-text">{skill}</li>
+        {/each}
+    </ul>
 </Entry>
 
-<Entry id="studio-jt" title="스튜디오 제이티 프로젝트">
-    <ProjectList projects={studioProjects} />
+<!-- 프로젝트 한 섹션 안에서 개인 / 회사(스튜디오 제이티) 영역만 나눔 -->
+<Entry id="projects" title="Projects">
+    <section aria-label="개인 프로젝트" id="personal">
+        <ProjectList projects={personalProjects} />
+    </section>
+
+    <section aria-label="스튜디오 제이티 프로젝트" class="mt-10 border-t border-tt-line pt-10" id="studio-jt">
+        <ProjectList projects={studioProjects} />
+    </section>
 </Entry>

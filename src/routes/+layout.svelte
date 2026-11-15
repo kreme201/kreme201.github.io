@@ -1,23 +1,36 @@
 <script>
     import "../app.css";
     import Link from "../components/Link.svelte";
-    import Widget from "../components/Widget.svelte";
     import { profile } from "$lib/profile";
 
     const menu = [
         { href: "/", label: "Home" },
-        { href: "/#personal", label: "개인 프로젝트" },
-        { href: "/#studio-jt", label: "스튜디오 제이티" },
-        { href: profile.github, label: "GitHub" },
+        { href: "/#projects", label: "Projects" },
     ];
 
-    const widgetLink = "text-tt-muted hover:text-tt-link";
+    // 메뉴 오른쪽 끝에 붙는 외부 링크
+    const links = [
+        { href: profile.github, label: "GitHub" },
+        { href: `mailto:${profile.email}`, label: "Email" },
+    ];
+
     const claudeCode = "https://claude.com/claude-code";
+
+    // 스티키 헤더 높이만큼 앵커(#personal 등) 이동 위치를 내려서 제목이 헤더에 가리지 않게 함
+    let headerHeight = 0;
+    $: if (typeof document !== "undefined" && headerHeight) {
+        const gap = window.matchMedia("(min-width: 600px)").matches ? 10 : 0;
+        document.documentElement.style.scrollPaddingTop = `${headerHeight + gap + 16}px`;
+    }
 </script>
 
 <!-- Twenty Twelve: 회색 배경 위 그림자 진 흰 박스 (600px 이상에서 위아래 48px 여백) -->
 <div class="mx-auto max-w-[1040px] bg-white px-6 shadow-site min-[600px]:my-12 min-[600px]:px-10">
-    <header class="py-6">
+    <!-- 스티키 헤더 위 여백(600px 이상만 10px): 그 사이로 본문이 비치지 않게 바깥 배경색 띠로 덮음 -->
+    <div aria-hidden="true" class="fixed inset-x-0 top-0 z-20 hidden h-[10px] bg-tt-bg min-[600px]:block"></div>
+
+    <!-- 스크롤해도 화면 위에 붙어 있는 헤더 (모바일은 맨 위에 꽉 차게, 600px 이상은 10px 아래) -->
+    <header bind:clientHeight={headerHeight} class="sticky top-0 z-10 bg-white py-6 min-[600px]:top-[10px]">
         <div class="flex flex-wrap items-end justify-between gap-2">
             <a class="group inline-flex items-center gap-3" href="/">
                 <img alt="" class="h-10 w-10 rounded" height="40" src="/assets/images/avatar-132x132.jpg" width="40" />
@@ -33,44 +46,25 @@
             </p>
         </div>
 
-        <nav aria-label="주요 메뉴" class="mt-6 border-y border-tt-line">
-            <ul class="flex flex-wrap gap-x-5 text-[12px] min-[600px]:gap-x-10 uppercase leading-[3.692]">
+        <nav aria-label="주요 메뉴"
+             class="mt-6 flex justify-between gap-x-5 whitespace-nowrap border-y border-tt-line text-[12px] uppercase leading-[3.692]">
+            <ul class="flex gap-x-5 min-[600px]:gap-x-10">
                 {#each menu as item}
+                    <li><Link class="text-tt-nav hover:text-tt-link" href={item.href}>{item.label}</Link></li>
+                {/each}
+            </ul>
+            <ul aria-label="링크" class="ml-auto flex gap-x-5">
+                {#each links as item}
                     <li><Link class="text-tt-nav hover:text-tt-link" href={item.href}>{item.label}</Link></li>
                 {/each}
             </ul>
         </nav>
     </header>
 
-    <div class="grid gap-y-12 pt-6 lg:grid-cols-[65.104%_26.041%] lg:justify-between">
-        <main class="min-w-0">
-            <slot />
-        </main>
-
-        <aside aria-label="사이드바">
-            <Widget title="About">
-                <p>
-                    {profile.location}에서 일하는 {profile.tagline} <strong>{profile.name}</strong>입니다.
-                    PHP, WordPress, Laravel을 중심으로 웹 서비스를 만들고 운영합니다.
-                </p>
-            </Widget>
-
-            <Widget title="Skills">
-                <ul class="flex flex-wrap gap-1.5">
-                    {#each profile.skills as skill}
-                        <li class="rounded-sm bg-tt-line px-2 text-[12px] text-tt-text">{skill}</li>
-                    {/each}
-                </ul>
-            </Widget>
-
-            <Widget title="Links">
-                <ul>
-                    <li><Link class={widgetLink} href={profile.github}>GitHub</Link></li>
-                    <li><Link class={widgetLink} href="mailto:{profile.email}">Email</Link></li>
-                </ul>
-            </Widget>
-        </aside>
-    </div>
+    <!-- Twenty Twelve 전체 폭(full-width) 템플릿: 사이드바 없이 본문만 -->
+    <main class="min-w-0 pt-6">
+        <slot />
+    </main>
 
     <footer class="flex flex-wrap justify-between gap-2 border-t border-tt-line py-6 text-[12px] text-tt-muted">
         <span>{profile.handle} · with <Link class="hover:text-tt-link" href={claudeCode}>Claude Code</Link></span>

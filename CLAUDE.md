@@ -24,9 +24,9 @@ npm run gh-pages   # 빌드 후 gh-pages 브랜치로 배포
 
 - `src/app.html` — HTML 뼈대, Google Fonts 로드, `<body>` 기본 색/폰트
 - `src/app.css` — Tailwind 지시문 + `.entry-content` 본문 타이포그래피
-- `src/routes/+layout.svelte` — 사이트 박스, 헤더(로고·메뉴), 본문 + 사이드바, 푸터
-- `src/routes/+page.svelte` — 메인페이지(개인 프로젝트 → 스튜디오 제이티 프로젝트 순서)
-- `src/components/` — `Entry`(글 블록), `ProjectList`(프로젝트 카드 그리드, 카드 전체가 새 창 링크), `Widget`(사이드바 위젯), `Link`(외부 링크면 새 창)
+- `src/routes/+layout.svelte` — 사이트 박스, 헤더(로고·메뉴), 전체 폭 본문, 푸터 (사이드바 없음)
+- `src/routes/+page.svelte` — 메인페이지(About Entry + 기술 태그 → "Projects" Entry 안에 개인 / 스튜디오 제이티 영역을 소제목 없이 구분선으로만 나눔)
+- `src/components/` — `Entry`(글 블록), `ProjectList`(프로젝트 카드 그리드, 카드 전체가 새 창 링크), `Link`(외부 링크면 새 창)
 - `src/lib/profile.ts` — 프로필, 기술 스택, 프로젝트 목록 데이터 (`$lib/profile`로 import)
   - `studioProjects`: studio-jt.co.kr 프로젝트 중 상세 페이지 "만든사람들"에 이영일이 기재된 것만. 최신순, `url`은 studio-jt 상세 페이지
   - `personalProjects`: GitHub 개인 프로젝트, `url`은 저장소
@@ -39,10 +39,9 @@ npm run gh-pages   # 빌드 후 gh-pages 브랜치로 배포
 - **색**: `tt-bg #e6e6e6`(바깥 배경), `tt-text #444`(본문), `tt-title #515151`(사이트 제목), `tt-nav #5e5e5e`(메뉴), `tt-muted #757575`(메타·푸터), `tt-line #ededed`(구분선), `tt-link #21759b` / `tt-link-hover #0f3647`
 - **폰트**: Open Sans 한 가지(한글은 Noto Sans KR). 기본 14px, 줄간격 1.714
 - **프레임**: 회색 배경 위 `shadow-site` 그림자의 흰 박스, 최대 폭 960px + 좌우 40px(모바일 24px), 600px 이상에서 위아래 48px 여백
-- **헤더**: 아바타 + 24px 굵은 사이트 제목 + 13px 설명, 그 아래 위아래 1px 선 사이의 12px 대문자 메뉴(항목 간격 40px)
-- **레이아웃**: `lg` 이상에서 본문 65.104% + 오른쪽 사이드바 26.041%, 그보다 작으면 사이드바가 아래로 쌓임
-- **글(Entry)**: 20px 보통 굵기 제목 → 본문 → 13px 메타 한 줄, 글 사이는 4px 이중선(`border-double`)
-- **위젯**: 11px 굵은 대문자 제목(`tt-widget`), 13px 본문, 링크는 `tt-muted` → hover `tt-link`
+- **헤더**: 스티키(흰 배경). 600px 미만은 `top-0`으로 꽉 차게, 600px 이상은 `top-[10px]`이고 위 10px 틈은 고정된 `tt-bg` 띠로 덮음. 헤더 높이는 레이아웃에서 측정해 `scroll-padding-top`으로 앵커 이동 위치를 보정한다. 아바타 + 24px 굵은 사이트 제목 + 13px 설명, 그 아래 위아래 1px 선 사이의 12px 대문자 메뉴(항목 간격 40px). 왼쪽은 페이지 메뉴(Home·Projects), 오른쪽 끝에 GitHub·Email 링크. 모바일에서도 줄바꿈 없이 한 줄
+- **레이아웃**: Twenty Twelve 전체 폭(full-width) 템플릿처럼 사이드바 없이 본문만. 본문의 모든 섹션(About, 프로젝트)은 같은 `Entry` 타이포그래피를 쓴다. About 소개문 바로 아래 기술 스택 태그(별도 소제목 없음), 프로젝트 카드는 `sm` 2열 / `lg` 3열
+- **글(Entry)**: 18px 굵은 대문자 제목(`tt-widget` 색, 섹션 제목은 영문: About, Projects) → 본문 → 13px 메타 한 줄, 글 사이는 4px 이중선(`border-double`)
 - **인용문**: 테두리 없이 24px 안쪽 여백 + 이탤릭
 - 본문 영역의 글은 `.entry-content` 안에 넣으면 p/ul/h3/blockquote/a 스타일이 자동 적용된다
 - `Link` 컴포넌트는 스타일 없이 외부 링크 처리만 하므로 `class`로 색을 지정한다
