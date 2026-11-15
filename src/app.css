@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* Twenty Twelve 본문 타이포그래피 */
+    .entry-content p,
+    .entry-content ul,
+    .entry-content ol,
+    .entry-content blockquote {
+        @apply mb-6;
+    }
+
+    .entry-content h3 {
+        @apply mb-1 text-base font-bold leading-[1.714];
+    }
+
+    .entry-content ul {
+        @apply ml-6 list-disc;
+    }
+
+    .entry-content a {
+        @apply text-tt-link underline hover:text-tt-link-hover;
+    }
+
+    .entry-content blockquote {
+        @apply p-6 text-[15px] italic;
+    }
+}
